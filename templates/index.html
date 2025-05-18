@@ -1,0 +1,55 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Knee Osteoarthisis Severe classification</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles/style.css" />
+    <script
+      src="https://code.jquery.com/jquery-3.6.1.js"
+      integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="header">Knee Osteoarthisis Severe classification System</div>
+
+    <div class="content">
+      <div class="upload">
+        <button class="btn-upload" id="btn-upload">
+          Choose your knee x-ray image to analyze
+        </button>
+        <div class="hint" id="hint">Supported format: PNG, JPG và JPEG.</div>
+        <form action="/" method="POST" id="form" enctype="multipart/form-data">
+          <input type="file" id="input" accept="image/*" name="file" hidden />
+        </form>
+      </div>
+      <div class="result">
+        {% if msg %}
+        <div class="result_title">Analyze by model: EfficientB7</div>
+        <div class="result_text">{{ msg }}</div>
+        <div class="result_text">
+          Severity specify :
+          <span class="result_predict">Severity Type{{ predict_name }}</span>
+        </div>
+        <div class="more">{{ more }}</div>
+        {% if image %}
+        <img class="result_image" src="test/3/{{ image }}" alt="" />
+        {% endif %} {% endif %}
+      </div>
+    </div>
+  </body>
+  <script>
+    $("#btn-upload").click(() => {
+      $("#input").trigger("click");
+    });
+
+    $("#input").change(() => {
+      $("#form").submit();
+      $("#hint").text("File uploading..." + $("#input")[0].files[0].name);
+    });
+  </script>
+</html>
