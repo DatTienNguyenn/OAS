@@ -4,7 +4,6 @@ from PIL import Image
 import torch
 import os
 import numpy as np
-import pre as pr
 
 # Khởi tạo Flask
 app = Flask(__name__)
@@ -50,7 +49,7 @@ def default_preprocess(image):
 
 # Hàm tạo và tải mô hình
 def load_model(model_path):
-    model = models.efficientnet_b7(pretrained=False)
+    model = models.efficientnet_b7(weights=False)
     num_features = model.classifier[1].in_features
     model.classifier[1] = torch.nn.Linear(num_features, len(classes))
     model.load_state_dict(torch.load(model_path, map_location=device))
